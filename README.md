@@ -1,6 +1,6 @@
 # PROmiRNA
 
-[PROmiRNA][1] is a program for annotating miRNA promoters in human, as well as other species. It uses deepCAGE data and integrated cage tag counts and other promoter features, such as CpG content, conservation and TATA box affinity, to score the potential of a candidate regions to be a promoter. This is the reimplemented, faster version of PROmiRNA (old python version available [here][2]) now capable of fast-processing of large CAGE libraries such as available from FANTOM4, FANTOM5 and ENCODE.
+[PROmiRNA][1] is a program for annotating miRNA promoters in human, as well as other species. It uses deepCAGE data and integrated cage tag counts and other promoter features, such as CpG content, conservation and TATA box affinity, to score the potential of a candidate region to be a promoter. This is the reimplemented, faster version of PROmiRNA (old python version available [here][2]) now capable of fast-processing of large CAGE libraries such as available from FANTOM4, FANTOM5 and ENCODE.
 
 ## Prerequisites
 
