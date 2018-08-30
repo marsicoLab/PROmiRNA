@@ -57,7 +57,7 @@ The conservation file with phastcons values can be downloaded from UCSC. It is r
 * http://hgdownload.cse.ucsc.edu/goldenpath/hg19/database/phastCons46way.txt.gz (need to have ```.txt``` or ```.wig``` ending for running PROmiRNA)
 * http://hgdownload.cse.ucsc.edu/gbdb/hg19/multiz46way/phastCons46way.wib
 
-The genes file can be downloaded from Ensembl (```.gtf``` ending required), for example for hg19 [here](ftp://ftp.ensembl.org/pub/grch37/release-92/gtf/homo_sapiens/Homo_sapiens.GRCh37.92.gtf.gz).
+The genes file can be downloaded from Ensembl (```.gtf``` ending required), for example for hg19 at ftp://ftp.ensembl.org/pub/grch37/release-92/gtf/homo_sapiens/Homo_sapiens.GRCh37.92.gtf.gz.
 
 
 [1]:https://genomebiology.biomedcentral.com/articles/10.1186/gb-2013-14-8-r84
