@@ -44,6 +44,14 @@ $ ./PROmiRNA [options]
   -t, --threads      Number of threads to use
 ```
 
+R packages can be installed within R environment:
+
+```
+$ R
+> install.packages("Rcpp")
+> install.packages("RInside")
+```
+
 ### Important to note:
 
 The folder ```external_data``` contains already the current up-to-date ```mirna.txt``` and ```mirna_context.txt``` files from the newest miRBase version (release 22). In addition, the pre-miRNA annotation for the human species ```hsa.gff3``` is also already shipped with this repository. In case other species are needed please download the annotation file from http://www.mirbase.org/ftp.shtml. 
