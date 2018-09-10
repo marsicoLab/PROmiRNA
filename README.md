@@ -4,7 +4,6 @@
 
 ## Prerequisites
 
-* C++17 support
 * GCC ≥ 7
 * CMake ≥ 3.0
 * R with packages RInside and Rcpp installed
