@@ -22,7 +22,7 @@ install:
 before_script:
   - mkdir test-build
   - cd test-build
-  - cmake ../test/
+  - cmake ../test/ -DTESTCASE=1
 
 script:
   - make -k
