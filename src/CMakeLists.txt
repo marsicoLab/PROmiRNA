@@ -5,7 +5,9 @@ project (PROmiRNA C CXX)
 set (SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/)
 set (CMAKE_BUILD_TYPE "Release")
 
+# ----------------------------------------------------------------------------
 # Requirements and settings for R embedding
+# ----------------------------------------------------------------------------
 
 execute_process(COMMAND R RHOME
                 OUTPUT_VARIABLE R_HOME)
@@ -100,10 +102,12 @@ execute_process(COMMAND ${RPATH} CMD config BLAS_LIBS
 execute_process(COMMAND ${RPATH} CMD config LAPACK_LIBS
                 OUTPUT_VARIABLE RLAPACK)
 
+# ----------------------------------------------------------------------------
 # SeqAn and TRAP settings
+# ----------------------------------------------------------------------------
 
-set (CMAKE_PREFIX_PATH "../seqan/util/cmake")
-set (SEQAN_INCLUDE_PATH "../seqan/include")
+set (CMAKE_PREFIX_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../seqan/util/cmake")
+set (SEQAN_INCLUDE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../seqan/include")
 set (TRAP_INCLUDE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/TRAP/)
 
 find_package (OpenMP REQUIRED)
@@ -113,7 +117,9 @@ find_package (ZLIB REQUIRED)
 include_directories (${SEQAN_INCLUDE_DIRS})
 add_definitions (${SEQAN_DEFINITIONS})
 
-# Includes and make calls for hgWiggle from kentUtils
+# ----------------------------------------------------------------------------
+# Old includes and make calls for hgWiggle from kentUtils
+# ----------------------------------------------------------------------------
 
 #set (kentUtils_path ${CMAKE_CURRENT_SOURCE_DIR}/../kentUtils/)
 
@@ -145,7 +151,9 @@ add_definitions (${SEQAN_DEFINITIONS})
 #target_link_libraries(hgWiggle kentutils_jkhgap_lib kentutils_jkweb_lib pthread ssl crypto kentutils_samtabix_lib z m mysqlclient)
 #target_include_directories(hgWiggle PUBLIC ${kentUtils_path}/src/inc ${kentUtils_path}/src/hg/inc)
 
+# ----------------------------------------------------------------------------
 # PROmiRNA executable including CD-HIT and TRAP source files
+# ----------------------------------------------------------------------------
 
 set (CMAKE_CXX_FLAGS "-std=c++17 -O3 ${CMAKE_CXX_FLAGS} ${SEQAN_CXX_FLAGS}")
 

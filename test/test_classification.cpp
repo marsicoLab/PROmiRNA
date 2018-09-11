@@ -1,10 +1,12 @@
 // ============================================================================
 // Test merging of bg sequences
 // ============================================================================
+// Author: Sara Hetzel (hetzel@molgen.mpg.de)
 
+#include <gtest/gtest.h>
 #include <iostream>
 
-#include "../../src/mirna_classification.h"
+#include "../src/mirna_classification.h"
 
 void traverseIntTreeCompareMirnas(IntTreeNode<std::pair<GenomicLocation, MiRNA> > *root, std::map<GenomicLocation, MiRNA> const & controlRecords)
 {
@@ -12,26 +14,15 @@ void traverseIntTreeCompareMirnas(IntTreeNode<std::pair<GenomicLocation, MiRNA> 
     traverseIntTreeCompareMirnas(root->left, controlRecords);
 
     auto mit = controlRecords.find((root->nodeInterval).first);
-    if (mit != controlRecords.end())
-    {
-        if ((root->nodeInterval).second != mit->second)
-        {
-            std::cerr << "ERROR: Difference in classified miRNAs between result and control." << std::endl;
-            return;
-        }
-    }
-    else
-    {
-        std::cerr << "ERROR: Difference in classified miRNAs between result and control XXX." << std::endl;
-        return;
-    }
+    EXPECT_NE(mit, controlRecords.end());
+
+    EXPECT_EQ((root->nodeInterval).second, mit->second);
+
     traverseIntTreeCompareMirnas(root->right, controlRecords);
 }
 
-
-int main()
+TEST(mirna_classification, classification)
 {
-
     MiRNA mirna1;
     mirna1.classification.insert("intron");
     mirna1.id = "86506";
@@ -59,7 +50,6 @@ int main()
 
     MiRNA mirna3;
     mirna3.classification.insert("intron");
-    mirna3.classification.insert("exon");
     mirna3.id = "84818";
     mirna3.accession = "MI0022558";
     mirna3.name = "hsa-mir-6723";
@@ -71,7 +61,7 @@ int main()
     gl3.strand = '-';
 
     MiRNA mirna4;
-    mirna4.classification.insert("exon");
+    mirna4.classification.insert("intergenic");
     mirna4.id = "80708";
     mirna4.accession = "MI0017330";
     mirna4.name = "hsa-mir-4697";
@@ -83,7 +73,7 @@ int main()
     gl4.strand = '-';
 
     MiRNA mirna5;
-    mirna5.classification.insert("intergenic");
+    mirna5.classification.insert("intron");
     mirna5.id = "79434";
     mirna5.accession = "MI0016049";
     mirna5.name = "hsa-mir-3649";
@@ -95,7 +85,7 @@ int main()
     gl5.strand = '-';
 
     MiRNA mirna6;
-    mirna6.classification.insert("intergenic");
+    mirna6.classification.insert("intron");
     mirna6.id = "68198";
     mirna6.accession = "MI0003675";
     mirna6.name = "hsa-mir-411";
@@ -107,7 +97,7 @@ int main()
     gl6.strand = '+';
 
     MiRNA mirna7;
-    mirna7.classification.insert("exon");
+    mirna7.classification.insert("intron");
     mirna7.id = "65390";
     mirna7.accession = "MI0000744";
     mirna7.name = "hsa-mir-299";
@@ -119,7 +109,7 @@ int main()
     gl7.strand = '+';
 
     MiRNA mirna8;
-    mirna8.classification.insert("exon");
+    mirna8.classification.insert("intron");
     mirna8.id = "65431";
     mirna8.accession = "MI0000788";
     mirna8.name = "hsa-mir-380";
@@ -131,8 +121,7 @@ int main()
     gl8.strand = '+';
 
     MiRNA mirna9;
-    mirna9.classification.insert("intron");
-    mirna9.classification.insert("exon");
+    mirna9.classification.insert("intergenic");
     mirna9.id = "86495";
     mirna9.accession = "MI0022694";
     mirna9.name = "hsa-mir-6848";
@@ -169,18 +158,15 @@ int main()
 
     miRNAIntTrees classifiedMirnas;
     std::map<CharString, unsigned> mirnaStarts;
-    CharString const gffPath = "test_files/test_hsa.gff";
-    CharString const mirnaPath = "../comparison/PROmiRNAOld/miRBase/mirna.txt"; // TODO Adapt for public git
-    CharString const mirnaContextPath = "../comparison/PROmiRNAOld/miRBase/mirna_context.txt"; // TODO Adapt for public git
+    std::map<CharString, CharString> mirnaExonChecks;
+    CharString const gffPath = "../test/test_files/test_hsa.gff";
+    CharString const mirnaPath = "../external_data/mirna.txt";
+    CharString const mirnaContextPath = "../external_data/mirna_context.txt";
 
-    mirnaClassification(classifiedMirnas, mirnaStarts, gffPath, mirnaPath, mirnaContextPath);
+    mirnaClassification(classifiedMirnas, mirnaStarts, mirnaExonChecks, gffPath, mirnaPath, mirnaContextPath);
 
     for (auto it = classifiedMirnas.begin(); it != classifiedMirnas.end(); it++)
     {
         traverseIntTreeCompareMirnas((it->second).root, controlRecords);
     }
-
-    std::cout << "Test classification successful." << std::endl;
-
-    return 0;
 }

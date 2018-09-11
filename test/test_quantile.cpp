@@ -1,12 +1,14 @@
 // ============================================================================
 // Test quantile normalization
 // ============================================================================
+// Author: Sara Hetzel (hetzel@molgen.mpg.de)
 
+#include <gtest/gtest.h>
 #include <iostream>
 
-#include "../../src/quantile_normalization.h"
+#include "../src/quantile_normalization.h"
 
-int main()
+TEST(quantile_normalization_test, quantile_normalization)
 {
     std::vector<std::vector<std::pair<float, unsigned> > > input{{std::make_pair(10,0), std::make_pair(8,0), std::make_pair(4,0), std::make_pair(4,0)},
                                                              {std::make_pair(20,1), std::make_pair(6,1), std::make_pair(0,1), std::make_pair(4,1)},
@@ -19,21 +21,8 @@ int main()
     MatrixPair inputMatrix;
     inputMatrix.matrix = input;
 
-    Matrix outputMatrix;
+    MatrixSingle outputMatrix;
     quantileNormalization(outputMatrix, inputMatrix);
 
-    for (unsigned i = 0; i < outputMatrix.matrix.size(); i++)
-    {
-        for (unsigned j = 0; j < outputMatrix.matrix[i].size(); j++)
-        {
-            if (outputMatrix.matrix[i][j] != control[i][j])
-            {
-                std::cerr << "ERROR: Control and output matrix not the same." << std::endl;
-                return 1;
-            }
-        }
-    }
-
-    std::cout << "Test quantile normalization successful." << std::endl;
-    return 0;
+    EXPECT_EQ(outputMatrix.matrix, control);
 }

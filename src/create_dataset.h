@@ -25,7 +25,12 @@
 
 #include "create_background.h"
 #include "structs.h"
-#include "TRAP/annotate.h"
+
+// The tests do not need to build TRAP and TRAP is not tested
+#ifndef TESTCASE
+    #include "TRAP/annotate.h"
+#endif
+
 #include "conservation.h"
 
 using namespace seqan;
@@ -164,10 +169,13 @@ void createDataset(std::vector<DatasetRecord> & dataset, CharString const psemPa
 
     #pragma omp parallel sections num_threads(2)
     {
-        #pragma omp section
-        {
-            trap::annotate(affinities, const_cast<char*>(fastaPath), const_cast<char*>(psemPathForTrap.c_str()), 0.5);
-        }
+        // The tests do not need to build TRAP and TRAP is not tested
+        #ifndef TESTCASE
+            #pragma omp section
+            {
+                trap::annotate(affinities, const_cast<char*>(fastaPath), const_cast<char*>(psemPathForTrap.c_str()), 0.5);
+            }
+        #endif
 
         #pragma omp section
         {

@@ -8,8 +8,11 @@
 #include <iostream>
 #include <vector>
 
-#include <RcppArmadillo.h>      	// For Armadillo as well as Rcpp
-#include <RInside.h>                // For the embedded R via RInside
+// The tests do not need to embed R
+#ifndef TESTCASE
+    #include <RcppArmadillo.h>      	// For Armadillo as well as Rcpp
+    #include <RInside.h>                // For the embedded R via RInside
+#endif
 
 #include <cmath>
 
@@ -29,7 +32,10 @@ using namespace seqan;
  * @param[in]       variables        X (variables) matrix for regression model (tag count, CpG content and conservation)
  *
  * Calls the glm function with binomial family in R with samples from EM algorithm dataset.
+ *
+ * NOTE: This function is not built for test cases.
  */
+#ifndef TESTCASE
 void estimateBetaParameters(std::vector<double> & betaParams, RInside & R, std::vector<unsigned> const & classification,
 std::vector<std::vector<double> > const & variables)
 {
@@ -44,6 +50,7 @@ std::vector<std::vector<double> > const & variables)
     std::string evalstr = "glm(y ~ x1 + x2 + x3, family = 'binomial')$coefficients";
     betaParams = Rcpp::as<std::vector<double> >(R.parseEval(evalstr));
 }
+#endif
 
 /*!
  * @fn average

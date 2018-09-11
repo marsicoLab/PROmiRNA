@@ -1,19 +1,21 @@
 // ============================================================================
 // Test merging of bg sequences
 // ============================================================================
+// Author: Sara Hetzel (hetzel@molgen.mpg.de)
 
+#include <gtest/gtest.h>
 #include <iostream>
 
-#include "../../src/create_background.h"
+#include "../src/create_background.h"
 
-template <typename TMap>
+template <typename TSet>
 bool setCompare(TSet const & lhs, TSet const & rhs)
 {
     return lhs.size() == rhs.size() && std::equal(lhs.begin(), lhs.end(), rhs.begin(), [] (auto a, auto b) { return a == b; });
 }
 
 
-int main()
+TEST(background, merge_background)
 {
     GenomicLocation gl1;
     gl1.chr = "chr1";
@@ -75,19 +77,11 @@ int main()
     merged1.strand = '+';
 
     std::set<GenomicLocation> controlSet;
-    controlSet.insert(merged1));
+    controlSet.insert(merged1);
     controlSet.insert(gl2);
     controlSet.insert(gl3);
     controlSet.insert(gl4);
     controlSet.insert(gl7);
 
-    if (!setCompare(backgroundSet, controlSet))
-    {
-        std::cerr << "ERROR: Differing elements in test and control map." << std::endl;
-        return 1;
-    }
-
-    std::cout << "Test merge background successful." << std::endl;
-
-    return 0;
+    EXPECT_TRUE(setCompare(backgroundSet, controlSet));
 }

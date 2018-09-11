@@ -66,6 +66,14 @@ struct MiRNA
 };
 
 // Equality operator for MiRNA
+inline bool operator==(MiRNA const & m1, MiRNA const & m2)
+{
+    return m1.classification == m2.classification &&
+           m1.id == m2.id &&
+           m1.accession == m2.accession &&
+           m1.name == m2.name;
+}
+
 inline bool operator!=(MiRNA const & m1, MiRNA const & m2)
 {
     return m1.classification != m2.classification ||
@@ -135,6 +143,13 @@ public:
 };
 
 // Equality operator for MatrixPair
+inline bool operator==(MatrixPair const & mp1, MatrixPair const & mp2)
+{
+    return mp1.matrix == mp2.matrix &&
+           mp1.rownames == mp2.rownames &&
+           mp1.colnames == mp2.colnames;
+}
+
 inline bool operator!=(MatrixPair const & mp1, MatrixPair const & mp2)
 {
     return mp1.matrix != mp2.matrix ||
