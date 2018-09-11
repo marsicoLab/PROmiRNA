@@ -20,10 +20,13 @@ install:
   - cmake --version
 
 before_script:
-  - mkdir ../test-build
-  - cd ../test-build
+  - mkdir test-build
+  - cd test-build
   - cmake ../test/
 
 script:
   - make -k
   - ctest . --output-on-failure
+
+notifications:
+  email: false
