@@ -1,0 +1,27 @@
+language: cpp
+
+git:
+  submodules: true
+
+linux-gcc-7: &linux-gcc-7
+  os: linux
+  compiler: 'g++-7'
+  addons:
+    apt:
+      sources: ['ubuntu-toolchain-r-test']
+      packages: ['g++-7']
+  before_install:
+    - export CC="gcc-7" CXX="g++-7"
+
+install:
+  - $CXX -v
+  - cmake --version
+
+before_script:
+  - mkdir ../test-build
+  - cd ../test-build
+  - cmake ../test/
+
+script:
+  - make -k
+  - ctest . --output-on-failure
