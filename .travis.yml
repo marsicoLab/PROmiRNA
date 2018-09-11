@@ -3,6 +3,9 @@ language: cpp
 git:
   submodules: true
 
+cache:
+  apt: true
+
 linux-gcc-7: &linux-gcc-7
   os: linux
   compiler: 'g++-7'
