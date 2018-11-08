@@ -4,6 +4,7 @@
 
 ## Prerequisites
 
+* Linux operating system
 * GCC ≥ 7
 * CMake ≥ 3.0
 * R with packages RInside and Rcpp installed
