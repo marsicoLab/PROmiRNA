@@ -65,8 +65,7 @@ The conservation file with phastcons values can be downloaded from UCSC. It is r
 * http://hgdownload.cse.ucsc.edu/goldenpath/hg19/database/phastCons46way.txt.gz (need to have ```.txt``` or ```.wig``` ending for running PROmiRNA)
 * http://hgdownload.cse.ucsc.edu/gbdb/hg19/multiz46way/phastCons46way.wib
 
-The genes file can be downloaded from Ensembl (```.gtf``` ending required), for example for hg19 at ftp://ftp.ensembl.org/pub/grch37/release-92/gtf/homo_sapiens/Homo_sapiens.GRCh37.92.gtf.gz.
-
+The genes file can be downloaded from Ensembl (```.gtf``` ending required), for example for hg19 at ftp://ftp.ensembl.org/pub/grch37/release-92/gtf/homo_sapiens/Homo_sapiens.GRCh37.92.gtf.gz. The gene starts file should be a ```gff``` file containing the gene starts of transcripts that should be excluded from the analysis in order to avoid calling the promoter of other genes by accident. This can be a pre-defined region around the TSS or any other annotation you want to exclude.
 
 [1]:https://genomebiology.biomedcentral.com/articles/10.1186/gb-2013-14-8-r84
 [2]:http://promirna.molgen.mpg.de/
